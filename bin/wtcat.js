@@ -1,14 +1,12 @@
 #!/usr/bin/env node
 
 import { createRequire } from "node:module";
-import { fileURLToPath } from "node:url";
 import EventEmitter from "node:events";
 import fs from "node:fs";
 import readline from "node:readline";
 import tty from "node:tty";
 import { createHash } from "node:crypto";
 
-const __filename = fileURLToPath(import.meta.url);
 const require = createRequire(import.meta.url);
 const { version } = require("../package.json");
 
@@ -43,7 +41,7 @@ process.emitWarning = (warning, ...args) => {
 
 const originalConsoleWarn = console.warn.bind(console);
 console.warn = (...args) => {
-  const message = args.map((arg) => String(arg)).join(" ");
+  const message = args.map(String).join(" ");
   if (isSuppressedWarningMessage(message)) {
     return;
   }
@@ -488,7 +486,6 @@ async function run() {
     wtConsole,
   );
 
-  // FIX #6: report per-command errors in --execute mode and continue.
   if (programOptions.execute.length) {
     for (const cmd of programOptions.execute) {
       try {
