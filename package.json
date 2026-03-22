@@ -1,0 +1,42 @@
+{
+  "name": "wtcat",
+  "version": "1.0.0",
+  "description": "WebTransport cat",
+  "keywords": [
+    "cat",
+    "cli",
+    "http3",
+    "quic",
+    "websocket",
+    "webtransport"
+  ],
+  "license": "MIT",
+  "bin": {
+    "wtcat": "./bin/wtcat.js"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "README.md"
+  ],
+  "type": "module",
+  "scripts": {
+    "start": "node bin/wtcat.js",
+    "test": "node --test --test-force-exit test/wtcat.test.js",
+    "lint": "oxlint .",
+    "fmt": "oxfmt . --write"
+  },
+  "dependencies": {
+    "@fails-components/webtransport": "^1.5.3",
+    "@fails-components/webtransport-transport-http3-quiche": "^1.5.3",
+    "commander": "^14.0.3",
+    "read": "^5.0.1"
+  },
+  "devDependencies": {
+    "oxfmt": "^0.41.0",
+    "oxlint": "^1.56.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
