@@ -33,7 +33,7 @@ process.emitWarning = (warning, ...args) => {
 
 const originalConsoleWarn = console.warn.bind(console);
 console.warn = (...args) => {
-  const message = args.map((arg) => String(arg)).join(" ");
+  const message = args.map(String).join(" ");
   if (isSuppressedWarningMessage(message)) {
     return;
   }
