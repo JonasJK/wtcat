@@ -11,8 +11,13 @@
     "webtransport"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonasJK/wtcat.git"
+  },
+  "homepage": "https://github.com/JonasJK/wtcat#readme",
   "bin": {
-    "wtcat": "./bin/wtcat.js"
+    "wtcat": "bin/wtcat.js"
   },
   "files": [
     "bin/",
