@@ -87,6 +87,7 @@ class Console extends EventEmitter {
       let prefix = type;
       let colorCode = color;
       let reset = Console.Colors.Default;
+      const shouldPrompt = !programOptions.execute.length;
 
       if (programOptions.execute.length) {
         colorCode = "";
@@ -98,7 +99,7 @@ class Console extends EventEmitter {
       }
 
       this.stdout.write(colorCode + prefix + msg + reset + "\n");
-      this.prompt();
+      if (shouldPrompt) this.prompt();
     } else if (type === Console.Types.Incoming) {
       this.stdout.write(msg + "\n");
     } else if (type === Console.Types.Error) {
@@ -350,7 +351,7 @@ program
   )
   .option(
     "-x, --execute <command>",
-    "send message after connecting, then exit (repeatable)",
+    "send message after connecting (repeatable)",
     collect,
     [],
   )
@@ -443,7 +444,9 @@ async function run() {
 
   wtConsole.print(
     Console.Types.Control,
-    "Connected (press CTRL+C to quit)",
+    programOptions.execute.length
+      ? "Connected"
+      : "Connected (press CTRL+C to quit)",
     Console.Colors.Green,
   );
 
@@ -502,7 +505,7 @@ async function run() {
     if (executeWaitSeconds === -1) return;
 
     const delay = executeWaitSeconds === null
-      ? 2000
+      ? 0
       : executeWaitSeconds * 1000;
     setTimeout(async () => {
       await closeQuietly(transport, "done");

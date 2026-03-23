@@ -794,11 +794,12 @@ describe("CLI: argument validation", () => {
 });
 
 describe("CLI: --execute against live echo", () => {
-  test("single -x message echoed on stdout", async () => {
+  test("single -x message echoed on stdout and exits by default", async () => {
     const msg = "cli-execute-test";
-    const { stdout } = await spawnWtcat([ECHO_URL, "-x", msg, "--wait", "3"], [], {
-      killAfter: 20_000,
+    const { stdout, code } = await spawnWtcat([ECHO_URL, "-x", msg], [], {
+      killAfter: 12_000,
     });
+    assert.equal(code, 0, "expected process to exit successfully");
     assert.ok(stdout.includes(msg), `expected "${msg}" in stdout:\n${stdout}`);
   });
 
